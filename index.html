@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roche GDSR portal redesign · Rajesh Kumar A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#1c2430;--mute:#59636f;--line:#d9dde3;--brand:#0066cc;--before:#a4402b;--wash:#f3f5f7}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.65 'Public Sans',system-ui,sans-serif}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+img{max-width:100%;display:block}
+h1,h2,h3{font-weight:600;line-height:1.2;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4.4vw,3.2rem);max-width:22ch}
+h2{font-size:clamp(1.5rem,2.6vw,2rem);max-width:30ch}
+h3{font-size:1.1rem}
+p{max-width:66ch;color:var(--mute)}
+.top{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:10}
+.top div{max-width:1180px;margin:auto;padding:12px 24px;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:.95rem}
+.top nav{display:flex;gap:20px;font-weight:400}
+.wrap{max-width:1180px;margin:auto;padding:0 24px;display:grid;grid-template-columns:190px 1fr;gap:56px}
+aside{position:sticky;top:60px;align-self:start;padding-top:48px;font-size:.92rem}
+aside a{display:block;padding:6px 0 6px 12px;border-left:2px solid var(--line);color:var(--mute);text-decoration:none}
+aside a:hover,aside a.on{border-color:var(--brand);color:var(--ink)}
+main{min-width:0;padding-bottom:72px}
+.hero{padding:48px 0 32px}
+.hero p.lede{font-size:1.15rem;margin-top:18px;color:var(--ink)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px 32px;margin:32px 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.95rem}
+.meta b{display:block;font-weight:600}.meta span{color:var(--mute)}
+.banner{border:1px solid var(--line)}
+.results{display:grid;grid-template-columns:repeat(4,1fr);margin-top:32px;border-top:3px solid var(--ink)}
+.results div{padding:18px 18px 18px 0}
+.results div+div{padding-left:18px;border-left:1px solid var(--line)}
+.results strong{display:block;font-size:2.3rem;font-weight:700;line-height:1.1;color:var(--brand)}
+.results b{display:block;font-size:.95rem;margin:6px 0 4px}
+.results p{font-size:.88rem}
+section{padding-top:72px;scroll-margin-top:60px}
+.head{margin-bottom:28px}.head p{margin-top:12px}
+.pain{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+.pain article{padding:18px 0;border-top:1px solid var(--line)}
+.pain h3{color:var(--before)}.pain p{margin-top:6px;font-size:.96rem}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:28px}
+figure{margin:0}
+.frame{display:block;width:100%;padding:0;border:1px solid var(--line);background:var(--wash);cursor:zoom-in}
+.frame img{width:100%;height:auto}
+figcaption{font-size:.86rem;color:var(--mute);margin-top:8px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:12px 16px 12px 0;border-bottom:1px solid var(--line);min-width:180px}
+th{font-weight:600;border-bottom:2px solid var(--ink)}
+td:first-child{font-weight:600}
+.cmp{position:relative;border:1px solid var(--line);aspect-ratio:16/9;background:var(--wash)}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left}
+.cmp .before{clip-path:inset(0 calc(100% - var(--p,50%)) 0 0)}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp .bar{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:var(--ink);pointer-events:none}
+.cmp .bar::after{content:"";position:absolute;top:50%;left:-9px;width:20px;height:40px;margin-top:-20px;background:var(--ink);border:2px solid #fff}
+.cmp:focus-within{outline:3px solid var(--brand)}
+.tag{position:absolute;top:0;padding:5px 10px;font-size:.8rem;font-weight:600;color:#fff;pointer-events:none}
+.tag.l{left:0;background:var(--before)}.tag.r{right:0;background:var(--brand)}
+.spread{display:grid;grid-template-columns:1fr 1.5fr;gap:36px;padding:36px 0;border-top:1px solid var(--line)}
+.spread ul{margin:14px 0 0 18px;color:var(--mute);font-size:.96rem}.spread li{margin:4px 0}
+.spread p{margin-top:8px}
+.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+.out{padding:18px 0;border-top:1px solid var(--line)}
+.out small{color:var(--mute)}
+.out .v{font-size:1.7rem;font-weight:700;color:var(--brand);margin-top:2px}
+.out .v s,.out .v em{font-size:1rem;font-weight:400;color:var(--mute);margin-left:8px;font-style:normal}
+.cta{margin-top:72px;padding:28px 0;border-top:3px solid var(--ink)}
+.cta p{margin:10px 0 16px}
+.btn{display:inline-block;padding:9px 16px;border:1px solid var(--brand);color:var(--brand);text-decoration:none;font-weight:600;font-size:.92rem;border-radius:3px}
+.btn.pri{background:var(--brand);color:#fff}
+dialog{border:0;background:transparent;max-width:94vw;padding:0}
+dialog::backdrop{background:rgba(10,15,22,.85)}
+dialog img{max-height:92vh;width:auto;margin:auto}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}aside{display:none}.results{grid-template-columns:1fr 1fr}.results div:nth-child(3){padding-left:0;border-left:0}.pain,.outcomes,.spread{grid-template-columns:1fr}}
+@media print{.top,aside,.cmp input{display:none}.wrap{display:block}}
+</style>
+</head>
+<body>
+<header class="top"><div><span>Rajesh Kumar A</span>
+<nav><a class="btn pri" href="https://www.figma.com/deck/8DXxzTPNNeDo9tIfwTzf4V/Roche-Pharma---UX-Case-Study?node-id=1-660&t=fXomdLv8Eser78lC-1" target="_blank" rel="noopener">View Figma deck</a></nav></div></header>
+
+<div class="wrap"><aside><a href="#top" class="on">Overview</a><a href="#compare">Before and after</a><a href="#problem">Problem</a><a href="#research">Research</a><a href="#solution">Solution</a><a href="#system">Design system</a><a href="#outcome">Outcome</a></aside>
+<main id="top">
+<div class="hero">
+  <p style="font-size:.95rem">Roche Pharma · Clinical data standards</p>
+  <h1>Redesigning the Global Data Standards Repository</h1>
+  <p class="lede">I rebuilt the information architecture, enterprise search and design system of Roche’s GDSR platform, so clinical researchers and biostatisticians stopped relying on spreadsheets and reached FDA/EMA-ready data faster.</p>
+  <div class="meta">
+    <div><b>Role</b>Lead UX researcher and product designer</div>
+    <div><b>Domain</b>CDISC, SDTM, eCRF, controlled terminology</div>
+    <div><b>Compliance</b>WCAG 2.2 AA, 21 CFR Part 11, GxP</div>
+    <div><b>Methods and tools</b>UX audit, tree testing (n=24), Figma tokens</div>
+  </div>
+  <div class="banner"><img src="https://rajesh04.unaux.com/Images/roche_banner.png" alt="GDSR enterprise architecture overview" width="1600" height="700"></div>
+</div>
+
+<div class="results" aria-label="Key results">
+  <div><strong>−65%</strong><b>Metadata lookup time</b><p>Controlled terminology is now in-grid. No more Excel exports.</p></div>
+  <div><strong>3.0×</strong><b>Faster lab and value search</b><p>One predictive index for lab measurements and value-level metadata.</p></div>
+  <div><strong>6 → 2</strong><b>Clicks to key reports</b><p>Taxonomy validated with tree testing, n=24.</p></div>
+  <div><strong>+40%</strong><b>Front-end build velocity</b><p>Tokenised components on the Roche R Design System.</p></div>
+</div>
+
+<section id="compare">
+  <div class="head"><h2>The change, side by side</h2><p>Drag the handle or use the arrow keys to compare the legacy portal with the redesign.</p></div>
+  <div class="cmp" id="cmp" style="--p:50%">
+    <img src="https://rajesh04.unaux.com/Images/new.png" alt="Redesigned GDSR interface">
+    <img class="before" src="https://rajesh04.unaux.com/Images/old.png" alt="Legacy GDSR interface">
+    <span class="tag l">Before: legacy</span><span class="tag r">After: redesigned</span>
+    <div class="bar"></div>
+    <input type="range" min="0" max="100" value="50" aria-label="Reveal legacy versus redesigned interface">
+  </div>
+</section>
+
+<section id="problem">
+  <div class="head"><h2>Four structural problems in regulated metadata work</h2>
+  <p>Every clinical dataset must conform to CDISC and eCRF standards before submission. A heuristic audit and workflow shadowing found these bottlenecks in the legacy portal.</p></div>
+  <div class="pain">
+    <article><h3>Buried navigation</h3><p>Data models, CRF annotations and terminologies sat under 6+ menu tiers, so researchers memorised folder paths.</p></article>
+    <article><h3>Search that missed the data</h3><p>Lab measurements and value-level metadata weren’t indexed, so biostatisticians exported large Excel files to filter keywords.</p></article>
+    <article><h3>Rigid data grids</h3><p>Fixed-width tables clipped columns and had no sticky headers or pinning, which broke side-by-side comparison on wide monitors.</p></article>
+    <article><h3>Compliance risk</h3><p>Vague validation messages and hidden anonymisation rules sent people to PDF SOPs during time-sensitive audits.</p></article>
+  </div>
+  <div class="shots">
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/nav.png" alt="Legacy nested menu hierarchy"></button><figcaption>Legacy nested menu hierarchy</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/table.png" alt="Legacy cluttered data grid"></button><figcaption>Legacy cluttered data grid</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/catalog.png" alt="Legacy disconnected catalog tree"></button><figcaption>Legacy disconnected catalog tree</figcaption></figure>
+  </div>
+</section>
+
+<section id="research">
+  <div class="head"><h2>Research that rebuilt navigation around researchers’ mental models</h2>
+  <p>I ran contextual inquiries, heuristic evaluations, open and closed card sorting, and tree testing with 24 clinical data managers and biostatisticians. Decision time fell 40% and first-click success rose from 52% to 94%.</p></div>
+  <div class="tw"><table>
+    <thead><tr><th>Workflow area</th><th>What we observed</th><th>What we changed</th></tr></thead>
+    <tbody>
+      <tr><td>Controlled terminology</td><td>Four sub-menus deep; forced offline Excel exports.</td><td>Top-level navigation with instant in-grid filtering (−65% lookup time).</td></tr>
+      <tr><td>Lab measurements and metadata</td><td>Excluded from the global search index.</td><td>Unified predictive search across lab parameters and value-level metadata (3.0× faster).</td></tr>
+      <tr><td>Variable codelist assignments</td><td>Multi-codelist mappings hidden in modals.</td><td>Inline codelist badges and expandable row drawers (−82% mapping confusion).</td></tr>
+      <tr><td>Anonymisation and data models</td><td>6+ clicks to reach operational CRF and data model reports.</td><td>Contextual GxP tooltips and 2-click report access.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="shots">
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/feedback.png" alt="Researcher feedback and pain-point clustering"></button><figcaption>Researcher feedback and pain-point clustering</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/solutions.png" alt="Challenge and solution matrix"></button><figcaption>Challenges and solution matrix</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/testing.png" alt="Tree testing results"></button><figcaption>Tree testing results (n=24)</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/flow.png" alt="End-to-end researcher task flow"></button><figcaption>End-to-end researcher task flow</figcaption></figure>
+  </div>
+</section>
+
+<section id="solution">
+  <div class="head"><h2>High-density interfaces that keep context</h2>
+  <p>Each workspace uses progressive disclosure, so researchers scan hundreds of variables while checking codelists, anonymisation rules and parent hierarchies in place.</p></div>
+  <div class="spread">
+    <div><h3>SDTM data table workspace</h3><p style="margin-top:10px">Multi-column customisation, sticky domain headers and a full-screen focus mode for dual-monitor workstations.</p>
+    <ul><li>Inline codelist badges cut mapping errors by 82%.</li><li>Anonymisation tooltips replaced PDF manual lookups.</li><li>One-click GxP-compliant Excel/CSV export keeps active filters.</li></ul></div>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/sdtm.png" alt="SDTM data table view"></button></figure>
+  </div>
+  <div class="spread">
+    <div><h3>Operational eCRF dataset</h3><p style="margin-top:10px">Study builders navigate therapeutic trees, such as Oncology to Breast Cancer, with persistent breadcrumbs and links from CRF questions to SDTM target variables.</p>
+    <ul><li>Two clicks to Catalog Summary and Change Publication audit logs.</li><li>Inline validation alerts block invalid study configurations.</li></ul></div>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/ecrf.png" alt="eCRF dataset and annotation inspector"></button></figure>
+  </div>
+  <div class="spread">
+    <div><h3>Global predictive search</h3><p style="margin-top:10px">One engine for SDTM variables, lab measurements and value-level metadata. Each result shows its parent-folder path and a domain badge.</p>
+    <ul><li>3.0× faster discovery across multi-study repositories.</li><li>Faceted domain pills narrow thousands of records with no page reload.</li></ul></div>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/search.png" alt="Global predictive metadata search"></button></figure>
+  </div>
+</section>
+
+<section id="system">
+  <div class="head"><h2>A tokenised design system, handed off to engineering</h2>
+  <p>With front-end leads I built a multi-tier Figma Variables and token library on the Roche R Design System. Shared grid density, focus rings and semantic status tokens lifted build velocity by 40%.</p>
+  <p style="font-size:.95rem">Covers colour tokens, type scale, spacing and data grid, and WCAG 2.2 AA specs.</p></div>
+  <div class="shots">
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/prototype.png" alt="Interactive prototype map"></button><figcaption>Interactive prototype map</figcaption></figure>
+    <figure><button class="frame" data-zoom><img loading="lazy" src="https://rajesh04.unaux.com/Images/token%20-roche.png" alt="Roche R design token taxonomy"></button><figcaption>Design token taxonomy</figcaption></figure>
+  </div>
+</section>
+
+<section id="outcome">
+  <div class="head"><h2>Measured gains after launch</h2><p>Benchmark testing with clinical data managers, biostatisticians and lab leads.</p></div>
+  <div class="outcomes">
+    <div class="out"><small>System Usability Scale</small><div class="v">84 / 100<s>48 / 100</s></div></div>
+    <div class="out"><small>Task completion, unassisted</small><div class="v">96%<s>54%</s></div></div>
+    <div class="out"><small>Mapping errors</small><div class="v">−82%<em>was hidden in modals</em></div></div>
+    <div class="out"><small>Accessibility audit</small><div class="v">100%<em>WCAG 2.2 AA, ARIA grid, 4.5:1+ contrast</em></div></div>
+  </div>
+</section>
+
+<div class="cta">
+  <h2>Open to principal and lead enterprise UX roles</h2>
+  <p>Life sciences, clinical R&amp;D platforms, high-density B2B SaaS and multi-brand design systems.</p>
+  <a class="btn pri" href="https://www.figma.com/deck/8DXxzTPNNeDo9tIfwTzf4V/Roche-Pharma---UX-Case-Study?node-id=1-660&t=fXomdLv8Eser78lC-1" target="_blank" rel="noopener">View the full Figma deck</a>
+</div>
+</main></div>
+<footer style="max-width:1180px;margin:auto;padding:0 24px 40px;color:#59636f;font-size:.9rem">Rajesh Kumar A · UX case study · Roche Pharma GDSR</footer>
+
+<dialog id="dlg"><img alt=""></dialog>
+<script>
+const c=document.getElementById('cmp'),r=c.querySelector('input');
+r.addEventListener('input',()=>c.style.setProperty('--p',r.value+'%'));
+const d=document.getElementById('dlg'),di=d.querySelector('img');
+document.querySelectorAll('[data-zoom]').forEach(b=>b.addEventListener('click',()=>{const i=b.querySelector('img');di.src=i.src;di.alt=i.alt;d.showModal()}));
+d.addEventListener('click',()=>d.close());
+const L=[...document.querySelectorAll('aside a')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)L.forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+e.target.id))}),{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('main,section').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
